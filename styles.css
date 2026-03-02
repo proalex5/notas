@@ -206,26 +206,51 @@ body {
 }
 
 /* --- FORMULARIO --- */
+/* --- FORMULARIO --- */
 .input-pill {
     background: linear-gradient(90deg, #6215C0 0%, #390099 100%);
     border-radius: 50px;
-    padding: 12px 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    width: 100%; /* Asegura que la píldora ocupe todo el ancho del contenedor */
+    height: 55px; /* Altura fija para uniformidad */
 }
 
-.input-pill input, .input-pill select {
+.input-pill span {
+    color: white;
+    font-weight: bold;
+    flex: 1; /* El texto ocupa el espacio de la izquierda */
+    white-space: nowrap;
+}
+
+.input-pill input, 
+.input-pill select {
     background: white;
     border: none;
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     color: #390099;
     font-weight: bold;
     outline: none;
+    
+    /* ESTO ES LA CLAVE: */
+    flex: 1.5;      /* Hace que todos los campos blancos midan lo mismo */
+    width: 100%;    /* Evita que se colapsen */
+    max-width: 160px; /* Limita el ancho para que no se pegue al texto */
+    height: 32px;   /* Altura idéntica para input y select */
+    text-align: center;
 }
 
+/* Estilo para cuando el select está vacío/deshabilitado */
+.input-pill select:disabled {
+    background-color: #eee;
+    color: #888;
+    font-size: 0.75rem; /* Un poco más pequeño si el texto es largo */
+    cursor: not-allowed;
+}
 /* --- BOTONES FLOTANTES Y GUARDAR --- */
 .fab-container { 
     margin-top: 20px; 

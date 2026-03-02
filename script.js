@@ -123,22 +123,43 @@ function cargarComboAsignaturas() {
     const anyoActual = localStorage.getItem('estudio_anyo');
     const tipoActual = localStorage.getItem('estudio_tipo');
     
+    // Filtramos las asignaturas del año y tipo seleccionado
     const data = JSON.parse(localStorage.getItem('mis_asignaturas') || "[]")
                  .filter(a => a.anyo === anyoActual && a.tipo === tipoActual);
                  
-    select.innerHTML = data.map(asig => `<option value="${asig.id}">${asig.nombre}</option>`).join('');
+    if (data.length === 0) {
+        // Si no hay nada, mostramos el mensaje y bloqueamos el campo
+        select.innerHTML = `<option value="">Añade una asignatura</option>`;
+        select.disabled = true;
+    } else {
+        // Si hay datos, habilitamos y llenamos el combo
+        select.disabled = false;
+        select.innerHTML = data.map(asig => 
+            `<option value="${asig.id}">${asig.nombre}</option>`
+        ).join('');
+    }
 }
+
 
 function guardarNota() {
     const idAsig = document.getElementById('select-asignatura').value;
     const fecha = document.getElementById('input-fecha').value;
     const valor = document.getElementById('input-nota').value;
 
-    if (!idAsig || !fecha || !valor) return alert("Rellena todos los campos");
+    if (!idAsig) {
+        return alert("Debes seleccionar una asignatura (o crear una si no hay)");
+    }
+    if (!fecha || !valor) {
+        return alert("Rellena todos los campos");
+    }
 
-    let notas = JSON.parse(localStorage.getItem('mis_notas') || "[]");
-    notas.push({ idAsignatura: idAsig, fecha, valor });
-    localStorage.setItem('mis_notas', JSON.stringify(notas));
+    let n = JSON.parse(localStorage.getItem('mis_notas') || "[]");
+    n.push({ idAsignatura: idAsig, fecha, valor });
+    localStorage.setItem('mis_notas', JSON.stringify(n));
+    
+    // Limpiar campos tras guardar
+    document.getElementById('input-fecha').value = "";
+    document.getElementById('input-nota').value = "";
     
     switchTab('historial');
 }
