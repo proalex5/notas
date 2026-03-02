@@ -252,29 +252,39 @@ body {
     cursor: not-allowed;
 }
 /* --- BOTONES FLOTANTES Y GUARDAR --- */
+/* --- BOTÓN AÑADIR ASIGNATURA (ESTILO PÍLDORA) --- */
 .fab-container { 
-    margin-top: 20px; 
+    margin-top: 30px; 
     display: flex; 
     justify-content: center; 
+    width: 100%; /* Asegura que se centre en toda la pantalla */
 }
 
 .fab {
     background: white; 
     color: #390099;
-    width: 65px; 
-    height: 65px; 
-    border-radius: 50%;
+    /* Quitamos el width y height fijos de 65px para que no sea un círculo */
+    padding: 15px 35px; 
+    border-radius: 50px; /* Esto le da la forma de óvalo/píldora */
     border: none; 
-    font-size: 35px;
+    font-size: 1rem; /* Tamaño de fuente adecuado para el texto */
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background 0.2s;
+    white-space: nowrap; /* Evita que el texto se divida en dos líneas */
 }
 
+.fab:active {
+    transform: scale(0.95);
+    background: #f0f0f0; /* Ligero cambio al presionar */
+}
+
+/* --- BOTÓN GUARDAR --- */
 .btn-guardar-container {
     display: flex; 
     justify-content: center;
     margin-top: 30px; 
-    background: #390099;
-    border-radius: 50%; 
-    padding: 40px;
 }
 
 .btn-guardar {
@@ -284,6 +294,7 @@ body {
     padding: 15px 45px;
     border-radius: 30px; 
     font-weight: bold;
+    cursor: pointer;
 }
 
 /* --- RESPONSIVE --- */
